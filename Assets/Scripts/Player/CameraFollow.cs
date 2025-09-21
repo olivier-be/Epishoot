@@ -40,11 +40,12 @@ public class CameraFollow : MonoBehaviour
             transform.Rotate(new Vector3(-v,0,0) );
         }
         
-        
 
-        
     }
 
+
+
+    
     private void OnDestroy()
     {
         //Cursor.lockState = CursorLockMode.None;

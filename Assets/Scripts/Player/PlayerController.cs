@@ -11,15 +11,27 @@ public class PlayerController : MonoBehaviour
     private CharacterController _controller;
 
     public float jumpHeight;
-    public float speed ; 
+    public float speed ;
+    private GameObject _camera;
+    public float mouseSensitivity ;
+    
+    public BulletManager bullet;
 
-    public float mouseSensitivity ; 
-
+    
     void Start()
     {
         _playerVelocity = new Vector3(0,0,0);
         _controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
+        
+        foreach (var v in transform.GetComponentsInChildren<Transform>())
+        {
+            if (v.gameObject.tag == "MainCamera")
+            {
+                _camera = v.gameObject;
+
+            }
+        }
     }
     
 
@@ -44,7 +56,20 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        
+        shoot();
+
     }
+    
+    
+    void shoot()
+    {
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            BulletManager instance = Instantiate(bullet, _camera.transform.position,
+                _camera.transform.rotation);
+            instance.player = gameObject;
+        }
+    }
+    
     
 }

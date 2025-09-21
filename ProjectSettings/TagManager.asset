@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - Crosshair
+  - Bullet
   layers:
   - Default
   - TransparentFX
