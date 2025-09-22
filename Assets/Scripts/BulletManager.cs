@@ -9,11 +9,13 @@ public class BulletManager : MonoBehaviour
     public float maxRange;
     private float range = 0;
     public float spawnDist;
+    public float damage;
+    public 
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        //transform.Translate(Vector3.forward);
+        transform.Translate(Vector3.forward * spawnDist);
     }
 
     // Update is called once per frame
@@ -36,8 +38,10 @@ public class BulletManager : MonoBehaviour
         Debug.Log("collide with :" + other.gameObject.name);
         if (other.gameObject.tag != "Player")
         {
-            Destroy(gameObject);
-            //collision.gameObject.SendMessage("bulletHit");
-        }    }
+            player.SendMessage("bulletHit");
+        }
+        Destroy(gameObject);
+
+    }
     
 }

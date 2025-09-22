@@ -63,7 +63,7 @@ public class PlayerController : MonoBehaviour
     
     void shoot()
     {
-        if (Input.GetKeyDown(KeyCode.T))
+        if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             BulletManager instance = Instantiate(bullet, _camera.transform.position,
                 _camera.transform.rotation);
