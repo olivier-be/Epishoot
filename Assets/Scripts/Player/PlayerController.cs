@@ -38,7 +38,7 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        if (!GameManager.InBreak)
+        if (!GameManager.InBreak && _photonView.IsMine)
         {
             move();
             shoot();
