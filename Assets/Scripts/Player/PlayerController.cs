@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -18,6 +19,9 @@ public class PlayerController : MonoBehaviour
     private float Xrotation;
 
     public BulletManager bullet;
+    
+    private PhotonView _photonView;
+
 
     
     void Start()
@@ -27,12 +31,14 @@ public class PlayerController : MonoBehaviour
         _controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
         _camera = gameObject.GetComponentInChildren<Camera>().gameObject;
+        _photonView = GetComponent<PhotonView>();
+
     }
     
 
     private void Update()
     {
-        if (!EscapeManager.InBreak)
+        if (!GameManager.InBreak)
         {
             move();
             shoot();
@@ -84,8 +90,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            BulletManager instance = Instantiate(bullet, _camera.transform.position,
-                _camera.transform.rotation);
+            BulletManager instance = PhotonNetwork.Instantiate(bullet.name, _camera.transform.position,
+                _camera.transform.rotation).gameObject.GetComponent<BulletManager>();
             instance.player = gameObject;
         }
     }
@@ -97,7 +103,8 @@ public class PlayerController : MonoBehaviour
             BulletManager other =collision.gameObject.gameObject.GetComponent<BulletManager>();
             if (other.player != gameObject)
             {
-                
+                _photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
+
             }
         }
     }

@@ -1,4 +1,5 @@
 using System;
+using Photon.Pun;
 using UnityEngine;
 
 public class BulletManager : MonoBehaviour
@@ -10,11 +11,14 @@ public class BulletManager : MonoBehaviour
     private float range = 0;
     public float spawnDist;
     public float damage;
-    public 
+    private PhotonView _photonView;
+
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        _photonView = GetComponent<PhotonView>();
+
         transform.Translate(Vector3.forward * spawnDist);
     }
 
@@ -44,7 +48,7 @@ public class BulletManager : MonoBehaviour
             //player.gameObject.SendMessage("HitEnemy");
         }
         */
-        Destroy(gameObject);
+        _photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
 
     }
     

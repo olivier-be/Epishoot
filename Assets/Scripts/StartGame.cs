@@ -14,7 +14,8 @@ public class StartGame : MonoBehaviour
     
     void OnClick()
     {
-        SceneManager.LoadScene(NextScene);
+        //GetComponent<NetworkLauncher>().JoinOrCreateRoomButton();
+        //SceneManager.LoadScene(NextScene);
     }
 
 }
