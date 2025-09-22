@@ -38,7 +38,7 @@ public class BulletManager : MonoBehaviour
         Debug.Log("collide with :" + other.gameObject.name);
         if (other.gameObject.tag != "Player")
         {
-            player.SendMessage("bulletHit");
+            //player.SendMessage("bulletHit");
         }
         Destroy(gameObject);
 
