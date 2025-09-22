@@ -35,10 +35,11 @@ public class BulletManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log("collide with :" + other.gameObject.name);
-        if (other.gameObject.tag != "Player")
+        Debug.Log(" Bullet collide with :" + other.gameObject.tag);
+
+        if (other.gameObject.tag == "Enemy")
         {
-            //player.SendMessage("bulletHit");
+            //player.gameObject.SendMessage("HitEnemy");
         }
         Destroy(gameObject);
 
