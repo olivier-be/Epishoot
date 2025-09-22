@@ -7,6 +7,7 @@ public class EscapeManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     private GameObject _Crosshair;
     public GameObject BreakMenu;
+    public GameObject DieMenu;
     public static Boolean InBreak;
     void Start()
     {

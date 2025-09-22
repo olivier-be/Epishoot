@@ -89,6 +89,18 @@ public class PlayerController : MonoBehaviour
             instance.player = gameObject;
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Bullet"))
+        {
+            BulletManager other =collision.gameObject.gameObject.GetComponent<BulletManager>();
+            if (other.player != gameObject)
+            {
+                
+            }
+        }
+    }
     
     
 }

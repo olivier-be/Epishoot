@@ -37,10 +37,13 @@ public class BulletManager : MonoBehaviour
     {
         Debug.Log(" Bullet collide with :" + other.gameObject.tag);
 
-        if (other.gameObject.tag == "Enemy")
+        /*
+        if (other.gameObject != player &&  
+            (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy")) )
         {
             //player.gameObject.SendMessage("HitEnemy");
         }
+        */
         Destroy(gameObject);
 
     }
