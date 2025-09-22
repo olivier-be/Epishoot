@@ -14,7 +14,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         InBreak = false;
-        Crosshair = GameObject.Find("Crosshair");
     }
 
     // Update is called once per frame

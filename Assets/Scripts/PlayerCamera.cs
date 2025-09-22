@@ -24,13 +24,19 @@ public class PlayerCamera : MonoBehaviour {
 
 		}
 
+		
 		void LateUpdate ()
 		{
+			
 			_photonView = GetComponent<PhotonView>();
+			
 			if ( _photonView.IsMine )
 			{
 				_camera.transform.position = poscam.transform.position;
+				_camera.transform.rotation = poscam.transform.rotation;
 			}
+			
 
 		}
+		
 }

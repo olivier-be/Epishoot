@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour
 
     public float jumpHeight;
     public float speed ;
-    private GameObject _camera;
     public float mouseSensitivity ;
     
     private float Xrotation;
@@ -21,7 +20,7 @@ public class PlayerController : MonoBehaviour
     public BulletManager bullet;
     
     private PhotonView _photonView;
-
+    public GameObject camera;
 
     
     void Start()
@@ -30,9 +29,15 @@ public class PlayerController : MonoBehaviour
         _playerVelocity = new Vector3(0,0,0);
         _controller = GetComponent<CharacterController>();
         Cursor.lockState = CursorLockMode.Locked;
-        _camera = gameObject.GetComponentInChildren<Camera>().gameObject;
+        //_camera = Camera.main.gameObject;
         _photonView = GetComponent<PhotonView>();
-
+        /*
+        if (_photonView.IsMine)
+        {
+            _camera.transform.position = camera_head.transform.position;
+            _camera.transform.rotation = camera_head.transform.rotation;
+        }
+        */
     }
     
 
@@ -72,17 +77,17 @@ public class PlayerController : MonoBehaviour
         Xrotation -= v;
         Xrotation = Mathf.Clamp(Xrotation, -90, 90);
         
-        _camera.transform.localRotation = Quaternion.Euler(Xrotation,0f,0f);
+        camera.transform.localRotation = Quaternion.Euler(Xrotation,0f,0f);
         //0.7f is 90 x in rotation unity
-        if ( Mathf.Abs(Mathf.Clamp(v + _camera.transform.rotation.x,-90f,90f) - 
-                       (v + _camera.transform.rotation.x)) > 0.1)
+        if ( Mathf.Abs(Mathf.Clamp(v + camera.transform.rotation.x,-90f,90f) - 
+                       (v + camera.transform.rotation.x)) > 0.1)
         {
-            _camera.transform.eulerAngles = new Vector3(90,0, 0);
+            camera.transform.eulerAngles = new Vector3(90,0, 0);
 
         }
         else
         {
-            _camera.transform.Rotate(new Vector3(-v,0,0) );
+            camera.transform.Rotate(new Vector3(-v,0,0) );
         }
     }
     
@@ -90,8 +95,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            BulletManager instance = PhotonNetwork.Instantiate(bullet.name, _camera.transform.position,
-                _camera.transform.rotation).gameObject.GetComponent<BulletManager>();
+            BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera.transform.position,
+                camera.transform.rotation).gameObject.GetComponent<BulletManager>();
             instance.player = gameObject;
         }
     }
