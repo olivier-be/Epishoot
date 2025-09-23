@@ -110,14 +110,14 @@ public class Player : MonoBehaviour
             instance.player = gameObject;
         }
     }
-
-    public void hit(int damage, GameObject other)
+    
+    public void OnCollisionEnter (Collision other)
     {
         _photonView = GetComponent<PhotonView>();
 
         if (_photonView.IsMine)
         {
-           if (other != gameObject)
+           if (other.gameObject != gameObject)
            {
                Debug.Log(" Bullet hit");
                PhotonView.Destroy(gameObject);
