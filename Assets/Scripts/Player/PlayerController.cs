@@ -118,23 +118,13 @@ public class PlayerController : MonoBehaviour
                 BulletManager other = collision.gameObject.gameObject.GetComponent<BulletManager>();
                 if (other.player != gameObject)
                 {
-                    DestroyGameObject(_photonView.ViewID);
+                    PhotonView.Destroy(_photonView);
                     gameManager.LoseMenu();
                 }
 
             }
         }
     }
-    
-    [PunRPC]
-    public void DestroyGameObject(int viewID)
-    {
-        PhotonView targetPhotonView = PhotonView.Find(viewID);
 
-        if (targetPhotonView != null && targetPhotonView.IsMine)
-        {
-            PhotonNetwork.Destroy(targetPhotonView);
-        }
-    }
     
 }

@@ -35,7 +35,7 @@ public class BulletManager : MonoBehaviour
             }
             else
             {
-                _photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
+                PhotonView.Destroy(_photonView);
             }
         }
     }
@@ -53,22 +53,11 @@ public class BulletManager : MonoBehaviour
                 //player.gameObject.SendMessage("HitEnemy");
             }
             */
-            _photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
+            //_photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
 
-            //DestroyGameObject(_photonView.ViewID);
+            PhotonView.Destroy(_photonView);
         }
 
-    }
-
-    [PunRPC]
-    public void DestroyGameObject(int viewID)
-    {
-        PhotonView targetPhotonView = PhotonView.Find(viewID);
-
-        if (targetPhotonView != null && targetPhotonView.IsMine)
-        {
-            PhotonNetwork.Destroy(targetPhotonView);
-        }
     }
     
 }

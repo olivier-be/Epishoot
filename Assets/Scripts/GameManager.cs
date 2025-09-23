@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetKeyDown(KeyCode.Escape) && !DieMenu.activeSelf)
         {
 
 
@@ -68,6 +68,8 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         Crosshair.SetActive(false);
+        BreakMenu.SetActive(false);
+
         DieMenu.SetActive(true);
     }
     
