@@ -51,6 +51,8 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        _photonView = GetComponent<PhotonView>();
+
         if (!GameManager.InBreak && _photonView.IsMine)
         {
             move();
@@ -111,6 +113,8 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
+        _photonView = GetComponent<PhotonView>();
+
         if (_photonView.IsMine)
         {
             if (collision.gameObject.CompareTag("Bullet"))
