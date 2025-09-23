@@ -24,7 +24,7 @@ public class Enemy : MonoBehaviour
         if (other.tag == "Bullet")
         {
             PhotonView _photonView =  other.GetComponent<PhotonView>();
-            PhotonView.Destroy(gameObject);
+            GameManager.DestroyRPC(gameObject);
         }
     }
 }
