@@ -19,15 +19,11 @@ public class Enemy : MonoBehaviour
     {
         
         GameObject other = collision.gameObject;
-        Debug.Log("collide with :" + other.tag);
+        //Debug.Log("collide with :" + other.tag);
 
         if (other.tag == "Bullet")
         {
-            PhotonView _photonView =  GetComponent<PhotonView>();
-            if (_photonView.IsMine)
-            {
                 GameManager.DestroyRPC(gameObject);
-            }
         }
         
     }

@@ -116,18 +116,14 @@ public class Player : MonoBehaviour
         }
     }
     
-    public void OnCollisionEnter (Collision other)
+    public void OnCollisionEnter (Collision collision)
     {
-        _photonView = GetComponent<PhotonView>();
+        GameObject other = collision.gameObject;
+        //Debug.Log("collide with :" + other.tag);
 
-        if (_photonView.IsMine)
+        if (other.tag == "Bullet" && other.gameObject != gameObject)
         {
-           if (other.gameObject != gameObject)
-           {
-               Debug.Log(" Bullet hit");
-               PhotonView.Destroy(gameObject);
-               gameManager.LoseMenu();
-           }
+            GameManager.DestroyRPC(gameObject);
         }
     }
 
