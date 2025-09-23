@@ -73,4 +73,10 @@ public class GameManager : MonoBehaviour
         DieMenu.SetActive(true);
     }
     
+    [PunRPC]
+    public static void DestroyRPC(GameObject obj)
+    {
+        PhotonNetwork.Destroy(obj);
+    }
+    
 }
