@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour
     
     private PhotonView _photonView;
     public GameObject camera;
-
+    private GameManager gameManager;
     
     void Start()
     {
@@ -38,6 +38,7 @@ public class PlayerController : MonoBehaviour
             _camera.transform.rotation = camera_head.transform.rotation;
         }
         */
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
     
 
@@ -103,12 +104,16 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Bullet"))
+        if (_photonView.IsMine)
         {
-            BulletManager other =collision.gameObject.gameObject.GetComponent<BulletManager>();
-            if (other.player != gameObject)
+            if (collision.gameObject.CompareTag("Bullet"))
             {
-                _photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
+                BulletManager other = collision.gameObject.gameObject.GetComponent<BulletManager>();
+                if (other.player != gameObject)
+                {
+                    PhotonView.Destroy(gameObject);
+                    gameManager.LoseMenu();
+                }
 
             }
         }

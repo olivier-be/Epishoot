@@ -41,13 +41,15 @@ public class GameManager : MonoBehaviour
     }
 
     public void LeaveGame()
-    {
+    { 
+        PhotonNetwork.Disconnect();
         SceneManager.LoadScene("menu");
     }
 
     
     public void QuitGame()
     {
+        PhotonNetwork.Disconnect();
         Application.Quit();
     }
 
@@ -59,6 +61,13 @@ public class GameManager : MonoBehaviour
         Crosshair.SetActive(true);
         DieMenu.SetActive(false);
         
+    }
+
+    public void LoseMenu()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Crosshair.SetActive(false);
+        DieMenu.SetActive(true);
     }
     
 }

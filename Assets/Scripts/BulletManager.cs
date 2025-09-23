@@ -25,30 +25,36 @@ public class BulletManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float dist = speed * Time.deltaTime;
-        if (maxRange > range )
+        if (_photonView.IsMine)
         {
-            transform.Translate(Vector3.forward * dist);
-            range += dist;
-        }
-        else
-        {
-            Destroy(gameObject);
+            float dist = speed * Time.deltaTime;
+            if (maxRange > range)
+            {
+                transform.Translate(Vector3.forward * dist);
+                range += dist;
+            }
+            else
+            {
+                PhotonView.Destroy(gameObject);
+            }
         }
     }
 
     private void OnCollisionEnter(Collision other)
     {
-        Debug.Log(" Bullet collide with :" + other.gameObject.tag);
-
-        /*
-        if (other.gameObject != player &&  
-            (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy")) )
+        if (_photonView.IsMine)
         {
-            //player.gameObject.SendMessage("HitEnemy");
+            Debug.Log(" Bullet collide with :" + other.gameObject.tag);
+
+            /*
+            if (other.gameObject != player &&
+                (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy")) )
+            {
+                //player.gameObject.SendMessage("HitEnemy");
+            }
+            */
+            PhotonView.Destroy(gameObject);
         }
-        */
-        _photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
 
     }
     
