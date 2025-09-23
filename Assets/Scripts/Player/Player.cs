@@ -7,7 +7,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     private Vector3 _playerVelocity;
     private CharacterController _controller;
@@ -111,22 +111,18 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    public void hit(int damage, GameObject other)
     {
         _photonView = GetComponent<PhotonView>();
 
         if (_photonView.IsMine)
         {
-            if (collision.gameObject.CompareTag("Bullet"))
-            {
-                BulletManager other = collision.gameObject.gameObject.GetComponent<BulletManager>();
-                if (other.player != gameObject)
-                {
-                    PhotonView.Destroy(gameObject);
-                    gameManager.LoseMenu();
-                }
-
-            }
+           if (other != gameObject)
+           {
+               Debug.Log(" Bullet hit");
+               PhotonView.Destroy(gameObject);
+               gameManager.LoseMenu();
+           }
         }
     }
 
