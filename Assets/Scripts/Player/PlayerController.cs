@@ -26,12 +26,18 @@ public class PlayerController : MonoBehaviour
     
     void Start()
     {
+        _photonView = GetComponent<PhotonView>();
+
         Xrotation = 0f;
         _playerVelocity = new Vector3(0,0,0);
         _controller = GetComponent<CharacterController>();
-        Cursor.lockState = CursorLockMode.Locked;
+
+
         //_camera = Camera.main.gameObject;
-        _photonView = GetComponent<PhotonView>();
+        if (_photonView.IsMine)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
         /*
         if (_photonView.IsMine)
         {
@@ -112,7 +118,7 @@ public class PlayerController : MonoBehaviour
                 BulletManager other = collision.gameObject.gameObject.GetComponent<BulletManager>();
                 if (other.player != gameObject)
                 {
-                    PhotonView.Destroy(gameObject);
+                    DestroyGameObject(_photonView.ViewID);
                     gameManager.LoseMenu();
                 }
 
@@ -120,5 +126,15 @@ public class PlayerController : MonoBehaviour
         }
     }
     
+    [PunRPC]
+    public void DestroyGameObject(int viewID)
+    {
+        PhotonView targetPhotonView = PhotonView.Find(viewID);
+
+        if (targetPhotonView != null && targetPhotonView.IsMine)
+        {
+            PhotonNetwork.Destroy(targetPhotonView);
+        }
+    }
     
 }
