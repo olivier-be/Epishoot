@@ -104,7 +104,7 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
             BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,
-                camera_pos.transform.rotation).gameObject.GetComponent<BulletManager>();
+                camera_pos.transform.rotation,0).gameObject.GetComponent<BulletManager>();
             instance.player = gameObject;
         }
     }
@@ -118,7 +118,7 @@ public class PlayerController : MonoBehaviour
                 BulletManager other = collision.gameObject.gameObject.GetComponent<BulletManager>();
                 if (other.player != gameObject)
                 {
-                    PhotonView.Destroy(_photonView);
+                    PhotonView.Destroy(gameObject);
                     gameManager.LoseMenu();
                 }
 
