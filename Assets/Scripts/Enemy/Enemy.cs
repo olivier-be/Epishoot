@@ -1,3 +1,4 @@
+using Photon.Pun;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -22,7 +23,8 @@ public class Enemy : MonoBehaviour
 
         if (other.tag == "Bullet")
         {
-            Destroy(gameObject);
+            PhotonView _photonView =  other.GetComponent<PhotonView>();
+            PhotonView.Destroy(gameObject);
         }
     }
 }

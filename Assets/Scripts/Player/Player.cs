@@ -109,6 +109,11 @@ public class Player : MonoBehaviour
                 camera_pos.transform.rotation,0).gameObject.GetComponent<BulletManager>();
             instance.player = gameObject;
         }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            BulletManager instance = PhotonNetwork.Instantiate("ennemy", new Vector3(0,1,0),
+                Quaternion.identity,0).gameObject.GetComponent<BulletManager>();
+        }
     }
     
     public void OnCollisionEnter (Collision other)
