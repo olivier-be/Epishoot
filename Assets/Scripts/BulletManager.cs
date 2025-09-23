@@ -25,6 +25,8 @@ public class BulletManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        _photonView = GetComponent<PhotonView>();
+
         if (_photonView.IsMine)
         {
             float dist = speed * Time.deltaTime;
@@ -42,6 +44,8 @@ public class BulletManager : MonoBehaviour
 
     private void OnCollisionEnter(Collision other)
     {
+        _photonView = GetComponent<PhotonView>();
+
         if (_photonView.IsMine)
         {
             Debug.Log(" Bullet collide with :" + other.gameObject.tag);
