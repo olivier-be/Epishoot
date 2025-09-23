@@ -5,6 +5,7 @@ using Photon.Pun;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 public class PlayerController : MonoBehaviour
 {
@@ -20,7 +21,7 @@ public class PlayerController : MonoBehaviour
     public BulletManager bullet;
     
     private PhotonView _photonView;
-    public GameObject camera;
+    [FormerlySerializedAs("camera")] public GameObject camera_pos;
     private GameManager gameManager;
     
     void Start()
@@ -78,17 +79,17 @@ public class PlayerController : MonoBehaviour
         Xrotation -= v;
         Xrotation = Mathf.Clamp(Xrotation, -90, 90);
         
-        camera.transform.localRotation = Quaternion.Euler(Xrotation,0f,0f);
+        camera_pos.transform.localRotation = Quaternion.Euler(Xrotation,0f,0f);
         //0.7f is 90 x in rotation unity
-        if ( Mathf.Abs(Mathf.Clamp(v + camera.transform.rotation.x,-90f,90f) - 
-                       (v + camera.transform.rotation.x)) > 0.1)
+        if ( Mathf.Abs(Mathf.Clamp(v + camera_pos.transform.rotation.x,-90f,90f) - 
+                       (v + camera_pos.transform.rotation.x)) > 0.1)
         {
-            camera.transform.eulerAngles = new Vector3(90,0, 0);
+            camera_pos.transform.eulerAngles = new Vector3(90,0, 0);
 
         }
         else
         {
-            camera.transform.Rotate(new Vector3(-v,0,0) );
+            camera_pos.transform.Rotate(new Vector3(-v,0,0) );
         }
     }
     
@@ -96,8 +97,8 @@ public class PlayerController : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
-            BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera.transform.position,
-                camera.transform.rotation).gameObject.GetComponent<BulletManager>();
+            BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,
+                camera_pos.transform.rotation).gameObject.GetComponent<BulletManager>();
             instance.player = gameObject;
         }
     }
