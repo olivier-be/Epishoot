@@ -17,14 +17,23 @@ public class Enemy : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-
+        
         GameObject other = collision.gameObject;
         Debug.Log("collide with :" + other.tag);
 
         if (other.tag == "Bullet")
         {
-            PhotonView _photonView =  other.GetComponent<PhotonView>();
-            GameManager.DestroyRPC(gameObject);
+            PhotonView _photonView =  GetComponent<PhotonView>();
+            if (_photonView.IsMine)
+            {
+                GameManager.DestroyRPC(gameObject);
+            }
         }
+        
+    }
+
+    public void hit()
+    {
+        
     }
 }
