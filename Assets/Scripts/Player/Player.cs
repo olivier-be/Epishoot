@@ -10,7 +10,6 @@ using UnityEngine.Serialization;
 public class Player : MonoBehaviour
 {
     private Vector3 _playerVelocity;
-    private CharacterController _controller;
 
     public float jumpHeight;
     public float speed ;
@@ -30,7 +29,6 @@ public class Player : MonoBehaviour
 
         Xrotation = 0f;
         _playerVelocity = new Vector3(0,0,0);
-        _controller = GetComponent<CharacterController>();
 
 
         //_camera = Camera.main.gameObject;
@@ -67,19 +65,12 @@ public class Player : MonoBehaviour
         transform.Rotate(new Vector3(0, h, 0));
         
         Vector3 newdir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        _controller.transform.Translate(newdir * speed * Time.deltaTime);
+        transform.Translate(newdir * speed * Time.deltaTime);
         
-        if (!_controller.isGrounded)
+        if (Input.GetButtonDown("Jump"))
         {
-            _controller.Move(Physics.gravity * Time.deltaTime);
-        }
-        else
-        {
-            if (Input.GetButtonDown("Jump"))
-            {
                 _playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * Physics.gravity.y);
-                _controller.Move(_playerVelocity * Time.deltaTime);
-            }
+                transform.Translate(_playerVelocity * Time.deltaTime);
         }
         //move y (camera)
         float v = mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
