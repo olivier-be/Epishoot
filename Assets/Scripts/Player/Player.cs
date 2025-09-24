@@ -23,13 +23,14 @@ public class Player : MonoBehaviour
     [FormerlySerializedAs("camera")] public GameObject camera_pos;
     private GameManager gameManager;
     
+    private Ray _raycastHit;
+    
     void Start()
     {
         _photonView = GetComponent<PhotonView>();
 
         Xrotation = 0f;
         _playerVelocity = new Vector3(0,0,0);
-
 
         //_camera = Camera.main.gameObject;
         if (_photonView.IsMine)
@@ -104,6 +105,17 @@ public class Player : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
         {
+            _raycastHit =  Camera.main.ViewportPointToRay(new Vector3(0.5f,0.5f,0f));
+            if (Physics.Raycast(_raycastHit, out RaycastHit hit))
+            {
+                if (hit.collider.gameObject.tag == "Player")
+                {
+                    PhotonView pv = hit.collider.gameObject.GetComponentInParent<PhotonView>();
+                    
+                    Debug.Log("Kill Player " + hit.collider.gameObject.tag);
+                    _photonView.RPC("DestroyGameObject", RpcTarget.All,pv.ViewID);
+                }
+            }
             BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,
                 camera_pos.transform.rotation,0).gameObject.GetComponent<BulletManager>();
             instance.player = gameObject;
@@ -125,8 +137,8 @@ public class Player : MonoBehaviour
             
             if (_photonView.IsMine)
             {
-                Debug.Log("Kill Player");
-                _photonView.RPC("DestroyGameObject", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+                //Debug.Log("Kill Player");
+                //_photonView.RPC("DestroyGameObject", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
                 GameManager.DestroyRPC(gameObject);
 
             }
