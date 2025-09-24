@@ -45,7 +45,15 @@ public class Player : MonoBehaviour
         */
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
-    
+
+    public void OnDestroy()
+    {
+        if (_photonView.IsMine)
+        {
+            gameManager.LoseMenu();
+        }
+    }
+
 
     private void Update()
     {
@@ -112,9 +120,15 @@ public class Player : MonoBehaviour
         GameObject other = collision.gameObject;
         //Debug.Log("collide with :" + other.tag);
 
-        if (other.tag == "Bullet" && other.gameObject != gameObject && _photonView.IsMine)
+        if (other.tag == "Bullet")
         {
-            GameManager.DestroyRPC(gameObject);
+            if (other.gameObject != gameObject && _photonView.IsMine)
+            {
+                GameManager.DestroyRPC(gameObject);
+            }
+            GameManager.DestroyRPC(other.gameObject);
+
+            
         }
     }
 
