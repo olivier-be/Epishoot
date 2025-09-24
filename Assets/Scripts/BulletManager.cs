@@ -57,8 +57,11 @@ public class BulletManager : MonoBehaviour
             }
             */
             //_photonView.RPC("DestroyGameObject", RpcTarget.All, gameObject.GetComponent<PhotonView>().ViewID);
+            if (!other.gameObject.CompareTag("Player"))
+            {
+                GameManager.DestroyRPC(gameObject);
 
-            GameManager.DestroyRPC(gameObject);
+            }
         }
 
     }
