@@ -47,8 +47,6 @@ public class BulletManager : MonoBehaviour
         _photonView = GetComponent<PhotonView>();
         if (_photonView.IsMine)
         {
-            //Debug.Log(" Bullet collide with :" + other.gameObject.tag);
-
             /*
             if (other.gameObject != player &&
                 (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy")) )

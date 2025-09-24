@@ -122,15 +122,30 @@ public class Player : MonoBehaviour
 
         if (other.tag == "Bullet")
         {
-            if (other.gameObject != gameObject && _photonView.IsMine)
+            
+            if (_photonView.IsMine)
             {
+                Debug.Log("Kill Player");
                 GameManager.DestroyRPC(gameObject);
+                _photonView.RPC("DestroyGameObject", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
+
             }
-            GameManager.DestroyRPC(other.gameObject);
 
             
         }
     }
+    
+    [PunRPC]
+    public void DestroyGameObject(int viewID)
+    {
+        PhotonView targetPhotonView = PhotonView.Find(viewID);
+
+        if (targetPhotonView != null && targetPhotonView.IsMine)
+        {
+            PhotonNetwork.Destroy(targetPhotonView);
+        }
+    }
+
 
     
 }
