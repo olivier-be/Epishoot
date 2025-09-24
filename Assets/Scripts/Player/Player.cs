@@ -112,7 +112,7 @@ public class Player : MonoBehaviour
         GameObject other = collision.gameObject;
         //Debug.Log("collide with :" + other.tag);
 
-        if (other.tag == "Bullet" && other.gameObject != gameObject)
+        if (other.tag == "Bullet" && other.gameObject != gameObject && _photonView.IsMine)
         {
             GameManager.DestroyRPC(gameObject);
         }
