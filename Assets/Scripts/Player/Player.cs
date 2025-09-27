@@ -116,14 +116,9 @@ public class Player : MonoBehaviour
                     _photonView.RPC("DestroyGameObject", RpcTarget.All,pv.ViewID);
                 }
             }
-            BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,
-                camera_pos.transform.rotation,0).gameObject.GetComponent<BulletManager>();
-            instance.player = gameObject;
-        }
-        if (Input.GetKeyDown(KeyCode.T))
-        {
-            BulletManager instance = PhotonNetwork.Instantiate("ennemy", new Vector3(0,1,0),
-                Quaternion.identity,0).gameObject.GetComponent<BulletManager>();
+            //BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,
+            //    camera_pos.transform.rotation,0).gameObject.GetComponent<BulletManager>();
+            //instance.player = gameObject;
         }
     }
     
