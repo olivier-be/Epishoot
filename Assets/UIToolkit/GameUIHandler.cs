@@ -1,4 +1,4 @@
-using UnityEngine;
+/*using UnityEngine;
 using UnityEngine.UIElements;
 
 public class GameUIHandler : MonoBehaviour
@@ -23,4 +23,4 @@ public class GameUIHandler : MonoBehaviour
         float healthPercent = Mathf.Lerp(8, 88, healthRatio);
         m_HealthBarMask.style.width = Length.Percent(healthPercent);
     }
-}
+}*/
