@@ -1,7 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using EpitaGame;
 using Photon.Pun;
+using PlayerClass.EpitaGame.Models;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -24,9 +26,12 @@ public class Player : MonoBehaviour
     private GameManager gameManager;
     
     private Ray _raycastHit;
+    public TypePlayer typePlayer;
+    public Character PlayerCharacter;
     
     void Start()
     {
+        PlayerCharacter = PlayerBuilder.Spawn(typePlayer);
         _photonView = GetComponent<PhotonView>();
 
         Xrotation = 0f;
