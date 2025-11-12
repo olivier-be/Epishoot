@@ -139,8 +139,12 @@ public class Player : MonoBehaviour
             {
                 //Debug.Log("Kill Player");
                 //_photonView.RPC("DestroyGameObject", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
-                GameManager.DestroyRPC(gameObject);
-
+                collision.gameObject.GetComponentInParent<BulletManager>().
+                    player.GetComponent<Player>().PlayerCharacter.Attack(PlayerCharacter);
+                if (!PlayerCharacter.IsAlive)
+                {
+                    GameManager.DestroyRPC(gameObject);
+                }
             }
 
             
