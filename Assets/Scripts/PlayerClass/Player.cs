@@ -8,6 +8,8 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.UIElements;
+using Cursor = UnityEngine.Cursor;
 
 public class Player : MonoBehaviour
 {
@@ -27,7 +29,12 @@ public class Player : MonoBehaviour
     
     private Ray _raycastHit;
     public TypePlayer typePlayer;
-    public Character PlayerCharacter;
+    private Character PlayerCharacter;
+    
+    public GameObject gameUIHandlerGameObject;
+
+    private GameUIHandler gameUIHandler;
+
     
     void Start()
     {
@@ -49,7 +56,8 @@ public class Player : MonoBehaviour
             _camera.transform.rotation = camera_head.transform.rotation;
         }
         */
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
+        gameUIHandler = gameManager.PlayerHealthBar.GetComponent<GameUIHandler>();
     }
 
     public void OnDestroy()
@@ -134,6 +142,8 @@ public class Player : MonoBehaviour
     [PunRPC]
     public void AttackPlayer (int viewID,int viewIDother)
     {
+        gameUIHandler.HealthChanged();
+
         PhotonView targetPhotonView = PhotonView.Find(viewIDother);
 
         if (targetPhotonView.IsMine)

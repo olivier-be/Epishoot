@@ -26,7 +26,7 @@ public class GameUIHandler : MonoBehaviour
     }
 
 
-    void HealthChanged()
+    public void HealthChanged()
     {
         float healthRatio = (float)PlayerControl.HealthPoints / PlayerControl.MaxHealthPoints;
         float healthPercent = Mathf.Lerp(8, 88, healthRatio);

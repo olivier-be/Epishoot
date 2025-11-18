@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public GameObject BreakMenu;
     public GameObject DieMenu;
     public GameObject HealthBar;
+    public GameObject PlayerHealthBar;
+    public GameObject TeamHealthBar;
 
     
     public static Boolean InBreak;
