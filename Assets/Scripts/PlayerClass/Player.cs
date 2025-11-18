@@ -142,7 +142,6 @@ public class Player : MonoBehaviour
     [PunRPC]
     public void AttackPlayer (int viewID,int viewIDother)
     {
-        gameUIHandler.HealthChanged();
 
         PhotonView targetPhotonView = PhotonView.Find(viewIDother);
 
@@ -164,6 +163,8 @@ public class Player : MonoBehaviour
             }
 
         }
+        gameUIHandler.HealthChanged(PlayerCharacter);
+
     }
 
     [PunRPC]
