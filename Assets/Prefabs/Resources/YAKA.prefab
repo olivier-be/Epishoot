@@ -124,7 +124,7 @@ GameObject:
   - component: {fileID: 8565689556583987629}
   - component: {fileID: 6271811281977278327}
   m_Layer: 0
-  m_Name: Player
+  m_Name: YAKA
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -164,7 +164,7 @@ MonoBehaviour:
   mouseSensitivity: 1000
   bullet: {fileID: -3659531513819619849, guid: d61fb5fd638ee494d87d3530e4fe38be, type: 3}
   camera_pos: {fileID: 3649040758453199226}
-  typePlayer: 0
+  typePlayer: 1
 --- !u!114 &4334450400052417497
 MonoBehaviour:
   m_ObjectHideFlags: 0

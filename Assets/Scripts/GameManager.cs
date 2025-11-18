@@ -58,9 +58,9 @@ public class GameManager : MonoBehaviour
         Application.Quit();
     }
 
-    public void Respawn()
+    public void Respawn(string prefabname)
     {
-        PhotonNetwork.Instantiate("Player",new Vector3(0, 1, -10), Quaternion.identity, 0);
+        PhotonNetwork.Instantiate(prefabname,new Vector3(0, 1, -10), Quaternion.identity, 0);
         InBreak = false;
         Cursor.lockState = CursorLockMode.Locked;
         Crosshair.SetActive(true);

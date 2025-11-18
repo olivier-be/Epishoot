@@ -115,20 +115,14 @@ public class Player : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Player")
                 {
-                    Player otherplayer = hit.collider.gameObject.GetComponentInParent<Player>();
-                    Character playerattacked = otherplayer.PlayerCharacter;
-                    PlayerCharacter.Attack(playerattacked);
-                    Debug.Log("player have :" + PlayerCharacter.ToString());
-
-                    if (!playerattacked.IsAlive)
-                    {
-                        GameManager.DestroyRPC(hit.collider.gameObject);
-                    }
-                    
                     PhotonView pv = hit.collider.gameObject.GetComponentInParent<PhotonView>();
                     
-                    Debug.Log("Kill Player " + hit.collider.gameObject.tag);
-                    _photonView.RPC("DestroyGameObject", RpcTarget.All,pv.ViewID);
+                    Debug.Log("player have :" + PlayerCharacter.HealthPoints);
+                    _photonView.RPC("AttackPlayer", RpcTarget.All,_photonView.ViewID,pv.ViewID);
+                    Debug.Log("player have :" + PlayerCharacter.HealthPoints);
+
+
+ 
                 }
             }
             //BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,
@@ -136,33 +130,32 @@ public class Player : MonoBehaviour
             //instance.player = gameObject;
         }
     }
-    /*
-    public void OnCollisionEnter (Collision collision)
+
+    [PunRPC]
+    public void AttackPlayer (int viewID,int viewIDother)
     {
-        GameObject other = collision.gameObject;
-        //Debug.Log("collide with :" + other.tag);
+        PhotonView targetPhotonView = PhotonView.Find(viewIDother);
 
-        if (other.tag == "Bullet")
+        if (targetPhotonView.IsMine)
         {
-            
-            if (_photonView.IsMine)
-            {
-                //Debug.Log("Kill Player");
-                //_photonView.RPC("DestroyGameObject", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
-                collision.gameObject.GetComponentInParent<BulletManager>().
-                    player.GetComponent<Player>().PlayerCharacter.Attack(PlayerCharacter);
-                Debug.Log("player have :" + PlayerCharacter.ToString());
+            PhotonView other = PhotonView.Find(viewID);
+            Character player = other.gameObject.GetComponentInParent<Player>().PlayerCharacter;
+            Character playerattacked = targetPhotonView.gameObject.GetComponentInParent<Player>().PlayerCharacter;
+            Debug.Log("player attacked have :" + playerattacked.HealthPoints);
+            Debug.Log("player have :" + player.HealthPoints);
 
-                if (!PlayerCharacter.IsAlive)
-                {
-                    GameManager.DestroyRPC(gameObject);
-                }
+            player.Attack(playerattacked);
+            Debug.Log("player attacked have :" + playerattacked.HealthPoints);
+            Debug.Log("player have :" + player.HealthPoints);
+            if (!playerattacked.IsAlive)
+            {
+                Debug.Log("Kill Player " + targetPhotonView.gameObject.tag);
+                _photonView.RPC("DestroyGameObject", RpcTarget.All,viewIDother);               
             }
 
-            
         }
     }
-    */
+
     [PunRPC]
     public void DestroyGameObject(int viewID)
     {
