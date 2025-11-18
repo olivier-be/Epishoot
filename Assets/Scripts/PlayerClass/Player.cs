@@ -115,6 +115,16 @@ public class Player : MonoBehaviour
             {
                 if (hit.collider.gameObject.tag == "Player")
                 {
+                    Player otherplayer = hit.collider.gameObject.GetComponentInParent<Player>();
+                    Character playerattacked = otherplayer.PlayerCharacter;
+                    PlayerCharacter.Attack(playerattacked);
+                    Debug.Log("player have :" + PlayerCharacter.ToString());
+
+                    if (!playerattacked.IsAlive)
+                    {
+                        GameManager.DestroyRPC(hit.collider.gameObject);
+                    }
+                    
                     PhotonView pv = hit.collider.gameObject.GetComponentInParent<PhotonView>();
                     
                     Debug.Log("Kill Player " + hit.collider.gameObject.tag);
@@ -126,7 +136,7 @@ public class Player : MonoBehaviour
             //instance.player = gameObject;
         }
     }
-    
+    /*
     public void OnCollisionEnter (Collision collision)
     {
         GameObject other = collision.gameObject;
@@ -141,6 +151,8 @@ public class Player : MonoBehaviour
                 //_photonView.RPC("DestroyGameObject", RpcTarget.All, other.gameObject.GetComponent<PhotonView>().ViewID);
                 collision.gameObject.GetComponentInParent<BulletManager>().
                     player.GetComponent<Player>().PlayerCharacter.Attack(PlayerCharacter);
+                Debug.Log("player have :" + PlayerCharacter.ToString());
+
                 if (!PlayerCharacter.IsAlive)
                 {
                     GameManager.DestroyRPC(gameObject);
@@ -150,7 +162,7 @@ public class Player : MonoBehaviour
             
         }
     }
-    
+    */
     [PunRPC]
     public void DestroyGameObject(int viewID)
     {
