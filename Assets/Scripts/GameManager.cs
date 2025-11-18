@@ -9,6 +9,10 @@ public class GameManager : MonoBehaviour
     public GameObject Crosshair;
     public GameObject BreakMenu;
     public GameObject DieMenu;
+    public GameObject PlayerLife;
+    public GameObject TeamLife;
+
+    
     public static Boolean InBreak;
     
     void Start()
@@ -25,6 +29,8 @@ public class GameManager : MonoBehaviour
 
 
             InBreak = !InBreak;
+            PlayerLife.SetActive(!PlayerLife.activeSelf);
+            TeamLife.SetActive(!TeamLife.activeSelf);
             Crosshair.SetActive(!Crosshair.activeSelf);
             BreakMenu.SetActive(!BreakMenu.activeSelf);
             
@@ -60,6 +66,8 @@ public class GameManager : MonoBehaviour
         InBreak = false;
         Cursor.lockState = CursorLockMode.Locked;
         Crosshair.SetActive(true);
+        TeamLife.SetActive(true);
+        Crosshair.SetActive(true);
         DieMenu.SetActive(false);
         
     }
@@ -69,7 +77,8 @@ public class GameManager : MonoBehaviour
         Cursor.lockState = CursorLockMode.None;
         Crosshair.SetActive(false);
         BreakMenu.SetActive(false);
-
+        TeamLife.SetActive(false);
+        Crosshair.SetActive(false);
         DieMenu.SetActive(true);
     }
     

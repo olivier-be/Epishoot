@@ -4972,6 +4972,8 @@ MonoBehaviour:
   Crosshair: {fileID: 1224299669}
   BreakMenu: {fileID: 272244741}
   DieMenu: {fileID: 335063900}
+  PlayerLife: {fileID: 1896887673}
+  TeamLife: {fileID: 1075939631}
 --- !u!4 &301839432
 Transform:
   m_ObjectHideFlags: 0
@@ -14957,7 +14959,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &597832090
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23027,7 +23029,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1075939632
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -44999,7 +45001,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1896887674
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54020,7 +54022,7 @@ GameObject:
   - component: {fileID: 2137013710}
   m_Layer: 0
   m_Name: HealthBare
-  m_TagString: Untagged
+  m_TagString: DieMenu
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
