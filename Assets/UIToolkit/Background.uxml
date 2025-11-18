@@ -1,0 +1,3 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement name="Background" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/nappin/Office%20Props%20Softpack/Textures/(Txt)GradientBlack.png?fileID=2800000&amp;guid=b817c21b3dd3f2e449f88957c9cb76f4&amp;type=3#(Txt)GradientBlack&quot;);" />
+</ui:UXML>

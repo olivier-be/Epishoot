@@ -1,0 +1,3 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <ui:VisualElement style="flex-grow: 1; -unity-background-image-tint-color: rgb(231, 88, 88); background-image: url(&quot;project://database/Assets/UIToolkit/SupportProject/Tutorial%20Assets/background.png?fileID=2800000&amp;guid=1b0006bd519935a15aea1d193bc96b8e&amp;type=3#background&quot;); -unity-slice-left: 100; -unity-slice-bottom: 100; -unity-slice-top: 100;" />
+</ui:UXML>
