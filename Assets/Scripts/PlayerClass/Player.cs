@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EpitaGame;
 using Photon.Pun;
+using PlayerClass;
 using PlayerClass.EpitaGame.Models;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -31,9 +32,10 @@ public class Player : MonoBehaviour
     public TypePlayer typePlayer;
     private Character PlayerCharacter;
     
-    public GameObject gameUIHandlerGameObject;
+    private GameUIHandler gameUIHandlerPlayer;
+    private GameUIHandlerTeam gameUIHandlerTeam;
 
-    private GameUIHandler gameUIHandler;
+    private Team Team;
 
     
     void Start()
@@ -57,7 +59,18 @@ public class Player : MonoBehaviour
         }
         */
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>(); 
-        gameUIHandler = gameManager.PlayerHealthBar.GetComponent<GameUIHandler>();
+        gameUIHandlerPlayer = gameManager.PlayerHealthBar.GetComponent<GameUIHandler>();
+        gameUIHandlerTeam = gameManager.TeamHealthBar.GetComponent<GameUIHandlerTeam>();
+        
+        if (typePlayer == TypePlayer.ACU || typePlayer == TypePlayer.YAKA)
+        {
+            Team = gameManager.GetAssistant();
+        }
+        else
+        {
+            Team = gameManager.GetStudent();
+        }
+        
     }
 
     public void OnDestroy()
@@ -112,6 +125,7 @@ public class Player : MonoBehaviour
         {
             camera_pos.transform.Rotate(new Vector3(-v,0,0) );
         }
+        
     }
     
     void shoot()
@@ -125,9 +139,7 @@ public class Player : MonoBehaviour
                 {
                     PhotonView pv = hit.collider.gameObject.GetComponentInParent<PhotonView>();
                     
-                    Debug.Log("player have :" + PlayerCharacter.HealthPoints);
                     _photonView.RPC("AttackPlayer", RpcTarget.All,_photonView.ViewID,pv.ViewID);
-                    Debug.Log("player have :" + PlayerCharacter.HealthPoints);
 
 
  
@@ -150,22 +162,24 @@ public class Player : MonoBehaviour
             PhotonView other = PhotonView.Find(viewID);
             Character player = other.gameObject.GetComponentInParent<Player>().PlayerCharacter;
             Character playerattacked = targetPhotonView.gameObject.GetComponentInParent<Player>().PlayerCharacter;
-            Debug.Log("player attacked have :" + playerattacked.HealthPoints);
-            Debug.Log("player have :" + player.HealthPoints);
 
-            player.Attack(playerattacked);
-            Debug.Log("player attacked have :" + playerattacked.HealthPoints);
-            Debug.Log("player have :" + player.HealthPoints);
+            player.Attack(playerattacked,Team);
             if (!playerattacked.IsAlive)
             {
                 Debug.Log("Kill Player " + targetPhotonView.gameObject.tag);
                 _photonView.RPC("DestroyGameObject", RpcTarget.All,viewIDother);               
             }
+            gameManager._photonView.RPC("UpdateTeamLife", RpcTarget.All,Team.Id,Team.HealthPoints);               
+
 
         }
-        gameUIHandler.HealthChanged();
+        gameUIHandlerPlayer.HealthChanged();
+        gameUIHandlerTeam.HealthChanged();
+
 
     }
+
+
 
     [PunRPC]
     public void DestroyGameObject(int viewID)
@@ -182,5 +196,11 @@ public class Player : MonoBehaviour
     {
         return PlayerCharacter;
     }
+
+    public Team GetTeam()
+    {
+        return Team;
+    }
+    
     
 }

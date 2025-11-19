@@ -1,4 +1,6 @@
 
+    using PlayerClass;
+
     public interface IPlayer
     {
         string Name { get; }
@@ -9,7 +11,7 @@
         
         string Team { get; }
 
-        void Attack(IPlayer target);
+        void Attack(IPlayer target,Team team);
         void TakeDamage(int damage);
         void Reset();
         void DisplayStatus();

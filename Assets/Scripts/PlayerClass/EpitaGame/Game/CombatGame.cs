@@ -36,14 +36,14 @@ namespace PlayerClass.EpitaGame.Game
             {
                 Console.WriteLine($"--- Tour {round} ---");
                 
-                student.Attack(assistant);
+                student.Attack(assistant,null);
                 
                 if (!assistant.IsAlive)
                 {
                     break;
                 }
                 
-                assistant.Attack(student);
+                assistant.Attack(student,null);
                 
                 Console.WriteLine();
                 round++;

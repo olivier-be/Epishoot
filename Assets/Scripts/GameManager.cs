@@ -1,5 +1,6 @@
 using System;
 using Photon.Pun;
+using PlayerClass;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -12,6 +13,12 @@ public class GameManager : MonoBehaviour
     public GameObject HealthBar;
     public GameObject PlayerHealthBar;
     public GameObject TeamHealthBar;
+    
+    public PhotonView _photonView;
+
+    private Team Assistant;
+    private Team Student;
+
 
     
     public static Boolean InBreak;
@@ -20,6 +27,11 @@ public class GameManager : MonoBehaviour
     {
         Cursor.lockState = CursorLockMode.None;
         InBreak = false;
+        Assistant = new Team("Assistant",0);
+        Student = new Team("Student",1);
+        _photonView = GetComponent<PhotonView>();
+        _photonView.RPC("CallOwner", RpcTarget.MasterClient);               
+
     }
 
     // Update is called once per frame
@@ -89,6 +101,46 @@ public class GameManager : MonoBehaviour
         if (photonView.IsMine)
         {
             PhotonNetwork.Destroy(obj);
+        }
+    }
+
+    public Team GetAssistant()
+    {
+        return Assistant;
+    }
+
+    public Team GetStudent()
+    {
+        return Student;
+    }
+
+    [PunRPC]
+    public void CallOwner()
+    {
+        _photonView.RPC("UpdateTeam", RpcTarget.All, Assistant.HealthPoints,Student.HealthPoints);               
+    }
+    
+    [PunRPC]
+    public void UpdateTeam(int teamAssistant, int teamStudent)
+    {
+        Assistant.setLife(teamAssistant);
+        Student.setLife(teamStudent);
+    }
+    
+    
+    [PunRPC]
+    public void UpdateTeamLife(int TeamID, int Life)
+    {
+        if (Assistant.Id == TeamID)
+        {
+            Debug.Log(Assistant.Name + " : " + Life);
+            Assistant.setLife(Life);
+        }
+        else
+        {
+            Debug.Log(Student.Name + " : " + Life);
+
+            Student.setLife(Life);
         }
     }
     

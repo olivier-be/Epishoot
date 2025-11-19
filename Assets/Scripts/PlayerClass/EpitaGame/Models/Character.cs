@@ -27,7 +27,7 @@ namespace PlayerClass.EpitaGame.Models
         }
         */
 
-        public virtual void Attack(IPlayer target)
+        public virtual void Attack(IPlayer target, Team team)
         {
             if (target.Team.Equals(Team))
             {
@@ -48,6 +48,7 @@ namespace PlayerClass.EpitaGame.Models
             }
 
             Console.WriteLine($"  {name} attaque {target.Name} : -{attackPower} PV");
+            team.Attack(attackPower);
             target.TakeDamage(attackPower);
         }
 
