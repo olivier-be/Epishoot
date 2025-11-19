@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
             }
 
         }
-        gameUIHandler.HealthChanged(PlayerCharacter);
+        gameUIHandler.HealthChanged();
 
     }
 
@@ -178,6 +178,9 @@ public class Player : MonoBehaviour
         }
     }
 
-
+    public Character GetCharacter()
+    {
+        return PlayerCharacter;
+    }
     
 }
