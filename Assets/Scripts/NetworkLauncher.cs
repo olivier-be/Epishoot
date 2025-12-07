@@ -45,13 +45,13 @@ public class NetworkLauncher : MonoBehaviourPunCallbacks
         }
         
         Log_feedback("Joining room. Wait a moment.");
-        RoomOptions options = new RoomOptions { MaxPlayers = 4};
+        RoomOptions options = new RoomOptions { MaxPlayers = 10};
         PhotonNetwork.JoinOrCreateRoom(roomName, options, default);
     }
 
     public override void OnJoinedRoom()
     {
-        if (PhotonNetwork.CurrentRoom.PlayerCount < 4)
+        if (PhotonNetwork.CurrentRoom.PlayerCount < 10)
         {
             PhotonNetwork.LoadLevel(1);
         }

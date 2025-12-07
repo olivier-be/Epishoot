@@ -9,7 +9,7 @@ public class GameUIHandlerTeam : MonoBehaviour
     public UIDocument UIDoc;
 
     private VisualElement m_HealthBarMask;
-    private Team _teamControl;
+    public Team _teamControl;
     private void Start()
     {
         GameObject[] player =  GameObject.FindGameObjectsWithTag("Player");

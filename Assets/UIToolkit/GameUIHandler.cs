@@ -8,7 +8,7 @@ public class GameUIHandler : MonoBehaviour
     public UIDocument UIDoc;
 
     private VisualElement m_HealthBarMask;
-    private Character PlayerControl;
+    public Character PlayerControl;
     private void Start()
     {
         GameObject[] player =  GameObject.FindGameObjectsWithTag("Player");

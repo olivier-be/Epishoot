@@ -15,6 +15,7 @@ namespace PlayerClass.EpitaGame.Models
         public int AttackPower => attackPower;
         public bool IsAlive => healthPoints > 0;
         public string Team => _team;
+        
 
         /*
         public Character(string name, int maxHealthPoints, int attackPower,string team)

@@ -45,6 +45,7 @@ MonoBehaviour:
   - CallOwner
   - UpdateTeam
   - UpdateTeamLife
+  - TeamKill
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

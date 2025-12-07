@@ -70,6 +70,15 @@ public class Player : MonoBehaviour
         {
             Team = gameManager.GetStudent();
         }
+
+        if (_photonView.IsMine)
+        {
+            gameUIHandlerPlayer.PlayerControl = this.PlayerCharacter;
+            gameUIHandlerTeam._teamControl =  this.Team;
+            gameUIHandlerPlayer.HealthChanged();
+            gameUIHandlerTeam.HealthChanged();
+        }
+        
         
     }
 
@@ -160,16 +169,17 @@ public class Player : MonoBehaviour
         if (targetPhotonView.IsMine)
         {
             PhotonView other = PhotonView.Find(viewID);
+            Player pl = other.gameObject.GetComponentInParent<Player>();
             Character player = other.gameObject.GetComponentInParent<Player>().PlayerCharacter;
-            Character playerattacked = targetPhotonView.gameObject.GetComponentInParent<Player>().PlayerCharacter;
-
-            player.Attack(playerattacked,Team);
-            if (!playerattacked.IsAlive)
+            Player playerAttacked = targetPhotonView.gameObject.GetComponentInParent<Player>();
+            Character playerAttackedChar = playerAttacked.PlayerCharacter;
+            player.Attack(playerAttackedChar,playerAttacked.Team);
+            if (!playerAttackedChar.IsAlive)
             {
                 Debug.Log("Kill Player " + targetPhotonView.gameObject.tag);
                 _photonView.RPC("DestroyGameObject", RpcTarget.All,viewIDother);               
             }
-            gameManager._photonView.RPC("UpdateTeamLife", RpcTarget.All,Team.Id,Team.HealthPoints);               
+            gameManager._photonView.RPC("UpdateTeamLife", RpcTarget.All,playerAttacked.Team.Id,playerAttacked.Team.HealthPoints);               
 
 
         }
@@ -179,6 +189,16 @@ public class Player : MonoBehaviour
 
     }
 
+    
+    [PunRPC]
+    public void TeamKill(Team team)
+    {
+
+        if ( _photonView.IsMine && Team.Id == team.Id)
+        {
+            _photonView.RPC("DestroyGameObject", RpcTarget.All,_photonView.ViewID);               
+        }
+    }
 
 
     [PunRPC]

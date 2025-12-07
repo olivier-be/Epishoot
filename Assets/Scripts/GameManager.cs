@@ -135,6 +135,10 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(Assistant.Name + " : " + Life);
             Assistant.setLife(Life);
+            if (Life == 0)
+            {
+                FindAnyObjectByType<Player>().GetComponent<PhotonView>().RPC("TeamKill", RpcTarget.All,TeamID);
+            }
         }
         else
         {
