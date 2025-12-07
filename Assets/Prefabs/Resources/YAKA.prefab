@@ -165,7 +165,6 @@ MonoBehaviour:
   bullet: {fileID: -3659531513819619849, guid: d61fb5fd638ee494d87d3530e4fe38be, type: 3}
   camera_pos: {fileID: 3649040758453199226}
   typePlayer: 1
-  gameUIHandlerGameObject: {fileID: 0}
 --- !u!114 &4334450400052417497
 MonoBehaviour:
   m_ObjectHideFlags: 0

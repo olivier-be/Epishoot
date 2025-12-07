@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
 
             InBreak = !InBreak;
             HealthBar.SetActive(!HealthBar.activeSelf);
+
             Crosshair.SetActive(!Crosshair.activeSelf);
             BreakMenu.SetActive(!BreakMenu.activeSelf);
             
@@ -55,7 +56,16 @@ public class GameManager : MonoBehaviour
             {
                 Cursor.lockState = CursorLockMode.Locked;
             }
-            
+            if (HealthBar.activeInHierarchy)
+            {
+                TeamHealthBar = FindAnyObjectByType<GameUIHandlerTeam>().gameObject;
+                TeamHealthBar.GetComponent<GameUIHandlerTeam>().SetTeam();
+                TeamHealthBar.GetComponent<GameUIHandlerTeam>().HealthChanged();
+
+                PlayerHealthBar =  FindAnyObjectByType<GameUIHandler>().gameObject;
+                PlayerHealthBar.GetComponent<GameUIHandler>().SetTeam(); 
+                PlayerHealthBar.GetComponent<GameUIHandler>().HealthChanged();
+            }
         }
     }
 
@@ -81,6 +91,9 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(true);
         Crosshair.SetActive(true);
         DieMenu.SetActive(false);
+        
+
+
         
     }
 

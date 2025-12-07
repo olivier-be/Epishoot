@@ -111,9 +111,9 @@ public class Player : MonoBehaviour
         Vector3 newdir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(newdir * speed * Time.deltaTime);
         
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.Space) && _playerVelocity.y < 0.02f &&  _playerVelocity.y > -0.02f )
         {
-                _playerVelocity.y += Mathf.Sqrt(jumpHeight * -3.0f * Physics.gravity.y);
+                _playerVelocity.y += Mathf.Sqrt(jumpHeight * Physics.gravity.y);
                 transform.Translate(_playerVelocity * Time.deltaTime);
         }
         //move y (camera)
@@ -183,6 +183,8 @@ public class Player : MonoBehaviour
 
 
         }
+        gameUIHandlerPlayer = gameManager.PlayerHealthBar.GetComponent<GameUIHandler>();
+        gameUIHandlerTeam = gameManager.TeamHealthBar.GetComponent<GameUIHandlerTeam>();
         gameUIHandlerPlayer.HealthChanged();
         gameUIHandlerTeam.HealthChanged();
 

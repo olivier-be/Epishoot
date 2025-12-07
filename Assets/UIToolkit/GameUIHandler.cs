@@ -11,24 +11,42 @@ public class GameUIHandler : MonoBehaviour
     public Character PlayerControl;
     private void Start()
     {
+        SetTeam();
+        m_HealthBarMask = UIDoc.rootVisualElement.Q<VisualElement>("HealthBarMask");
+        HealthChanged();
+
+    }
+
+    public void SetTeam()
+    {
         GameObject[] player =  GameObject.FindGameObjectsWithTag("Player");
         for (int i = 0; i < player.Length; i++)
         {
             if (player[i].gameObject.GetComponent<Player>() != null &&player[i].gameObject.GetComponent<PhotonView>() != null &&
-                 player[i].GetPhotonView().IsMine)
+                player[i].GetPhotonView().IsMine)
             {
-                PlayerControl = player[i].GetComponent<Player>().GetCharacter();
+                Player p = player[i].GetComponent<Player>();
+                PlayerControl = p.GetCharacter();
+                
             }
         }
-        m_HealthBarMask = UIDoc.rootVisualElement.Q<VisualElement>("HealthBarMask");
-
+        GameManager gm =  GameObject.FindFirstObjectByType<GameManager>();
+        gm.PlayerHealthBar = gameObject;
     }
-
 
     public void HealthChanged()
     {
+        m_HealthBarMask = UIDoc.rootVisualElement.Q<VisualElement>("HealthBarMask");
+
+        if (PlayerControl == null)
+        {
+            SetTeam();
+        }
         float healthRatio = (float)PlayerControl.HealthPoints / PlayerControl.MaxHealthPoints;
         float healthPercent = Mathf.Lerp(8, 88, healthRatio);
-        m_HealthBarMask.style.width = Length.Percent(healthPercent);
+        if (m_HealthBarMask != null)
+        {
+            m_HealthBarMask.style.width = Length.Percent(healthPercent);
+        }
     }
 }
