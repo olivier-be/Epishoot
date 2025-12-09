@@ -16963,6 +16963,7 @@ MonoBehaviour:
   HealthBar: {fileID: 0}
   PlayerHealthBar: {fileID: 0}
   TeamHealthBar: {fileID: 0}
+  CrossHit: {fileID: 0}
   _photonView: {fileID: 0}
 --- !u!4 &824891694
 Transform:
@@ -41932,7 +41933,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_Resource: {fileID: 8300000, guid: 5355d47ccd858abda964f722f5db8641, type: 3}
+  m_Resource: {fileID: 8300000, guid: ad9c441d314fa605684855b600a62298, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
