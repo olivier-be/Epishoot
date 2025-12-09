@@ -150,8 +150,8 @@ public class Player : MonoBehaviour
                     
                     _photonView.RPC("AttackPlayer", RpcTarget.All,_photonView.ViewID,pv.ViewID);
 
+                    gameManager.hitCrosshair();
 
- 
                 }
             }
             //BulletManager instance = PhotonNetwork.Instantiate(bullet.name, camera_pos.transform.position,

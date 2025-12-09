@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Photon.Pun;
 using PlayerClass;
 using UnityEngine;
@@ -13,6 +15,9 @@ public class GameManager : MonoBehaviour
     public GameObject HealthBar;
     public GameObject PlayerHealthBar;
     public GameObject TeamHealthBar;
+    public GameObject CrossHit;
+    private bool hit;
+
     
     public PhotonView _photonView;
 
@@ -161,4 +166,16 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    public async IAsyncEnumerable<WaitForSeconds> hitCrosshair()
+    {
+        if (!hit)
+        {
+            hit = true;
+            CrossHit.SetActive(true);
+            yield return new WaitForSeconds(4); 
+            hit = false; 
+            CrossHit.SetActive(false);
+        }
+    }
+
 }
