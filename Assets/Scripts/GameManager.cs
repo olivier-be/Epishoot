@@ -179,8 +179,7 @@ public class GameManager : MonoBehaviour
             hit = true;
             CrossHit.SetActive(true);
             Invoke("SetFalse",0.5f); // disable after 5 seconds
-
-
+            
         }
     }
 
