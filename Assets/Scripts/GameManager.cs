@@ -105,7 +105,6 @@ public class GameManager : MonoBehaviour
     public void LoseMenu()
     {
         Cursor.lockState = CursorLockMode.None;
-        Crosshair.SetActive(false);
         BreakMenu.SetActive(false);
         HealthBar.SetActive(false);
         Crosshair.SetActive(false);
@@ -165,16 +164,23 @@ public class GameManager : MonoBehaviour
             Student.setLife(Life);
         }
     }
+
+    public void SetFalse()
+    {
+        
+        hit = false; 
+        CrossHit.SetActive(false);
+    }
     
-    public async IAsyncEnumerable<WaitForSeconds> hitCrosshair()
+    public void hitCrosshair()
     {
         if (!hit)
         {
             hit = true;
             CrossHit.SetActive(true);
-            yield return new WaitForSeconds(4); 
-            hit = false; 
-            CrossHit.SetActive(false);
+            Invoke("SetFalse",0.5f); // disable after 5 seconds
+
+
         }
     }
 
