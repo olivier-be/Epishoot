@@ -4975,7 +4975,7 @@ MonoBehaviour:
   HealthBar: {fileID: 2137013709}
   PlayerHealthBar: {fileID: 1896887673}
   TeamHealthBar: {fileID: 1075939631}
-  CrossHit: {fileID: 0}
+  CrossHit: {fileID: 348904160}
   _photonView: {fileID: 0}
 --- !u!4 &301839432
 Transform:
@@ -5752,7 +5752,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &348904161
 RectTransform:
   m_ObjectHideFlags: 0
