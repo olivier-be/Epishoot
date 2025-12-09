@@ -12,7 +12,7 @@
         {
             Name = name;
             Id = id;
-            HealthPoints = 1000;
+            HealthPoints = 190;
             MaxHealthPoints = HealthPoints;
         }
 

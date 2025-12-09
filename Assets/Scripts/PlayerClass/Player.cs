@@ -193,10 +193,10 @@ public class Player : MonoBehaviour
 
     
     [PunRPC]
-    public void TeamKill(Team team)
+    public void TeamKill(int team)
     {
 
-        if ( _photonView.IsMine && Team.Id == team.Id)
+        if ( _photonView.IsMine && Team.Id == team)
         {
             _photonView.RPC("DestroyGameObject", RpcTarget.All,_photonView.ViewID);               
         }
