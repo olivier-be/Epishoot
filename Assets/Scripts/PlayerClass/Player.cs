@@ -112,11 +112,6 @@ public class Player : MonoBehaviour
         Vector3 newdir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
         transform.Translate(newdir * speed * Time.deltaTime);
         
-        if (Input.GetKeyDown(KeyCode.Space) && _playerVelocity.y < 0.02f &&  _playerVelocity.y > -0.02f )
-        {
-                _playerVelocity.y += Mathf.Sqrt(jumpHeight * Physics.gravity.y);
-                transform.Translate(_playerVelocity * Time.deltaTime);
-        }
         //move y (camera)
         float v = mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
         //transform.Rotate(new Vector3(0, h, 0));
@@ -181,8 +176,7 @@ public class Player : MonoBehaviour
                 _photonView.RPC("DestroyGameObject", RpcTarget.All,viewIDother);               
             }
             gameManager._photonView.RPC("UpdateTeamLife", RpcTarget.All,playerAttacked.Team.Id,playerAttacked.Team.HealthPoints);               
-
-
+            
         }
         gameUIHandlerPlayer = gameManager.PlayerHealthBar.GetComponent<GameUIHandler>();
         gameUIHandlerTeam = gameManager.TeamHealthBar.GetComponent<GameUIHandlerTeam>();

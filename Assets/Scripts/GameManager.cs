@@ -16,6 +16,9 @@ public class GameManager : MonoBehaviour
     public GameObject PlayerHealthBar;
     public GameObject TeamHealthBar;
     public GameObject CrossHit;
+    public GameObject TeamKill;
+    public GameObject PlayerKill;
+
     private bool hit;
 
     
@@ -95,8 +98,10 @@ public class GameManager : MonoBehaviour
         Crosshair.SetActive(true);
         HealthBar.SetActive(true);
         Crosshair.SetActive(true);
-        DieMenu.SetActive(false);
         
+        DieMenu.SetActive(false);
+        TeamKill.SetActive(false);
+        PlayerKill.SetActive(false);
 
 
         
@@ -109,6 +114,11 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(false);
         Crosshair.SetActive(false);
         DieMenu.SetActive(true);
+        if (!TeamKill.activeInHierarchy)
+        {
+            PlayerKill.SetActive(true);
+        }
+
     }
     
     [PunRPC]
@@ -152,10 +162,7 @@ public class GameManager : MonoBehaviour
         {
             Debug.Log(Assistant.Name + " : " + Life);
             Assistant.setLife(Life);
-            if (Life == 0)
-            {
-                FindAnyObjectByType<Player>().GetComponent<PhotonView>().RPC("TeamKill", RpcTarget.All,TeamID);
-            }
+
         }
         else
         {
@@ -163,6 +170,21 @@ public class GameManager : MonoBehaviour
 
             Student.setLife(Life);
         }
+        if (Life == 0)
+        {
+            TeamKill.SetActive(true);
+            FindAnyObjectByType<Player>().GetComponent<PhotonView>().RPC("TeamKill", RpcTarget.All,TeamID);
+            if (Assistant.Id == TeamID)
+            {
+                Assistant.setLife(Assistant.MaxHealthPoints);
+
+            }
+            else
+            {
+                Student.setLife(Student.MaxHealthPoints);
+            }
+        }
+
     }
 
     public void SetFalse()
