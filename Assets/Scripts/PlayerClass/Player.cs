@@ -38,12 +38,18 @@ public class Player : MonoBehaviour
 
     private Team Team;
 
+    private Rigidbody rb;
+    
+    private CharacterController cc;
+
     
     void Start()
     {
         PlayerCharacter = PlayerBuilder.Spawn(typePlayer);
         _photonView = GetComponent<PhotonView>();
-
+        rb = GetComponent<Rigidbody>();
+        cc = GetComponent<CharacterController>();
+        
         Xrotation = 0f;
         _playerVelocity = new Vector3(0,0,0);
 
@@ -101,17 +107,27 @@ public class Player : MonoBehaviour
             move();
             shoot();
         }
+        
+        if (transform.position.y < -10)
+        {
+            _photonView.RPC("DestroyGameObject", RpcTarget.All,_photonView.ViewID);               
+        }
     }
-
+    
     void move()
     {
+        _playerVelocity = Physics.gravity * Time.deltaTime;
         // move x
         float h = mouseSensitivity * Input.GetAxis("Mouse X") * Time.deltaTime;
         transform.Rotate(new Vector3(0, h, 0));
-        
-        Vector3 newdir = new Vector3(Input.GetAxis("Horizontal"), 0, Input.GetAxis("Vertical"));
-        transform.Translate(newdir * speed * Time.deltaTime);
-        
+
+        if (cc.isGrounded && Input.GetButtonDown("Jump"))
+        {
+            
+            _playerVelocity.y = 4;
+
+        }
+       
         //move y (camera)
         float v = mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
         //transform.Rotate(new Vector3(0, h, 0));
@@ -131,8 +147,19 @@ public class Player : MonoBehaviour
             camera_pos.transform.Rotate(new Vector3(-v,0,0) );
         }
         
+
+        float moveHorizontal = Input.GetAxis ("Horizontal");
+        float moveVertical = Input.GetAxis ("Vertical");
+
+        Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
+        Debug.Log(movement * speed );
+        //rb.Move(movement,transform.rotation);
+        cc.Move( transform.TransformDirection(movement) * speed * Time.deltaTime + _playerVelocity);
+
+
+        
     }
-    
+
     void shoot()
     {
         if (Input.GetKeyDown(KeyCode.Mouse0))
