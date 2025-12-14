@@ -4,6 +4,6 @@
         <ui:VisualElement name="HealthBarMask" style="flex-grow: 1; position: absolute; overflow: hidden; height: 165%; width: 100%; transition-property: width; transition-duration: 0.5s; transition-timing-function: ease-out-bounce; transition-delay: 0.5s;">
             <ui:VisualElement name="HealthBarFill" class="healthbar-size" style="flex-grow: 1; background-image: url(&quot;project://database/Assets/UIToolkit/SupportProject/Tutorial%20Assets/HealthBarFill.png?fileID=2800000&amp;guid=17df3bc68caea7241bd565f1ec3f2bff&amp;type=3#HealthBarFill&quot;); position: absolute; height: 165px; background-size: 100% 100%;" />
         </ui:VisualElement>
-        <ui:Label text="Player" name="HealthLabel" style="position: absolute; width: 205px; height: 73px; -unity-text-align: middle-left; font-size: 28px; left: 235px; top: 40px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 50px; overflow: visible;" />
+        <ui:Label text="Player" name="HealthLabel" style="position: absolute; width: 205px; height: 73px; -unity-text-align: middle-left; font-size: 28px; left: 266px; top: 46px; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 50px; overflow: visible;" />
     </ui:VisualElement>
 </ui:UXML>

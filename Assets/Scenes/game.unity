@@ -5084,8 +5084,8 @@ MonoBehaviour:
   PlayerHealthBar: {fileID: 1896887673}
   TeamHealthBar: {fileID: 1075939631}
   CrossHit: {fileID: 348904160}
-  TeamKill: {fileID: 688953298}
-  PlayerKill: {fileID: 1851872416}
+  TeamKill: {fileID: 1851872416}
+  PlayerKill: {fileID: 688953298}
   _photonView: {fileID: 0}
 --- !u!4 &301839432
 Transform:
