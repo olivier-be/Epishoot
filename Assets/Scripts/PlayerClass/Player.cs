@@ -118,7 +118,8 @@ public class Player : MonoBehaviour
     {
         _playerVelocity = Physics.gravity * Time.deltaTime;
         // move x
-        float h = mouseSensitivity * Input.GetAxis("Mouse X") * Time.deltaTime;
+        Debug.Log( gameManager.Sensibility);
+        float h = mouseSensitivity * gameManager.Sensibility * Input.GetAxis("Mouse X") * Time.deltaTime;
         transform.Rotate(new Vector3(0, h, 0));
 
         if (cc.isGrounded && Input.GetButtonDown("Jump"))
@@ -129,7 +130,7 @@ public class Player : MonoBehaviour
         }
        
         //move y (camera)
-        float v = mouseSensitivity * Input.GetAxis("Mouse Y") * Time.deltaTime;
+        float v = mouseSensitivity * gameManager.Sensibility * Input.GetAxis("Mouse Y") * Time.deltaTime;
         //transform.Rotate(new Vector3(0, h, 0));
         Xrotation -= v;
         Xrotation = Mathf.Clamp(Xrotation, -90, 90);

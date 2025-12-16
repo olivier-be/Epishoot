@@ -5,6 +5,7 @@ using Photon.Pun;
 using PlayerClass;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,6 +19,9 @@ public class GameManager : MonoBehaviour
     public GameObject CrossHit;
     public GameObject TeamKill;
     public GameObject PlayerKill;
+    public GameObject Slider;
+    public Slider SliderSenis;
+
 
     private bool hit;
 
@@ -26,6 +30,8 @@ public class GameManager : MonoBehaviour
 
     private Team Assistant;
     private Team Student;
+    
+    public int Sensibility;
 
 
     
@@ -38,13 +44,15 @@ public class GameManager : MonoBehaviour
         Assistant = new Team("Assistant",0);
         Student = new Team("Student",1);
         _photonView = GetComponent<PhotonView>();
-        _photonView.RPC("CallOwner", RpcTarget.MasterClient);               
-
+        _photonView.RPC("CallOwner", RpcTarget.MasterClient);
+        Sensibility = (int)SliderSenis.value;
     }
 
     // Update is called once per frame
     void Update()
     {
+        Sensibility = (int)SliderSenis.value;
+
         if (Input.GetKeyDown(KeyCode.Escape) && !DieMenu.activeSelf)
         {
 
@@ -54,7 +62,7 @@ public class GameManager : MonoBehaviour
 
             Crosshair.SetActive(!Crosshair.activeSelf);
             BreakMenu.SetActive(!BreakMenu.activeSelf);
-            
+            Slider.SetActive(!Slider.activeSelf);
             if (InBreak)
             {
                 Cursor.lockState = CursorLockMode.None;
@@ -99,6 +107,8 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(true);
         Crosshair.SetActive(true);
         
+        Slider.SetActive(false);
+
         DieMenu.SetActive(false);
         TeamKill.SetActive(false);
         PlayerKill.SetActive(false);
@@ -114,6 +124,8 @@ public class GameManager : MonoBehaviour
         HealthBar.SetActive(false);
         Crosshair.SetActive(false);
         DieMenu.SetActive(true);
+        Slider.SetActive(true);
+
         if (!TeamKill.activeInHierarchy)
         {
             PlayerKill.SetActive(true);
