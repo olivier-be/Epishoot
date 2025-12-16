@@ -152,11 +152,9 @@ public class Player : MonoBehaviour
         float moveVertical = Input.GetAxis ("Vertical");
 
         Vector3 movement = new Vector3 (moveHorizontal, 0.0f, moveVertical);
-        Debug.Log(movement * speed );
         //rb.Move(movement,transform.rotation);
         cc.Move( transform.TransformDirection(movement) * speed * Time.deltaTime + _playerVelocity);
-
-
+        
         
     }
 

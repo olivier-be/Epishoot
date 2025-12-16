@@ -16964,6 +16964,8 @@ MonoBehaviour:
   PlayerHealthBar: {fileID: 0}
   TeamHealthBar: {fileID: 0}
   CrossHit: {fileID: 0}
+  TeamKill: {fileID: 0}
+  PlayerKill: {fileID: 0}
   _photonView: {fileID: 0}
 --- !u!4 &824891694
 Transform:
@@ -17011,7 +17013,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 0.745283, g: 0.17225882, b: 0.17225882, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
